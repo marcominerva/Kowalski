@@ -1,1 +1,1 @@
-# KowalskiAssistant
+# Kowalski
