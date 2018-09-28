@@ -1,0 +1,1645 @@
+{
+  "luis_schema_version": "3.1.0",
+  "versionId": "0.1",
+  "name": "Assistant",
+  "desc": "Kowalsky, options?",
+  "culture": "it-it",
+  "intents": [
+    {
+      "name": "date"
+    },
+    {
+      "name": "joke"
+    },
+    {
+      "name": "None"
+    },
+    {
+      "name": "search"
+    },
+    {
+      "name": "time"
+    },
+    {
+      "name": "weather"
+    }
+  ],
+  "entities": [
+    {
+      "name": "day",
+      "roles": []
+    },
+    {
+      "name": "location",
+      "roles": []
+    },
+    {
+      "name": "name",
+      "roles": []
+    }
+  ],
+  "composites": [],
+  "closedLists": [],
+  "patternAnyEntities": [],
+  "regex_entities": [],
+  "prebuiltEntities": [],
+  "model_features": [],
+  "regex_features": [],
+  "patterns": [],
+  "utterances": [
+    {
+      "text": "a monza che tempo fa?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 2,
+          "endPos": 6
+        }
+      ]
+    },
+    {
+      "text": "a palermo come si sta?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 2,
+          "endPos": 8
+        }
+      ]
+    },
+    {
+      "text": "a san francisco come si sta?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 2,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "che cosa significa palinsesto?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 19,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "che cosa vuol dire anacronistico?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 19,
+          "endPos": 31
+        }
+      ]
+    },
+    {
+      "text": "che cos'è la fossa delle marianne",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 13,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "che cos'è un albero?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 13,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "che giorno è oggi?",
+      "intent": "date",
+      "entities": [
+        {
+          "entity": "day",
+          "startPos": 13,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "che giorno è?",
+      "intent": "date",
+      "entities": []
+    },
+    {
+      "text": "che giorno sarà domani?",
+      "intent": "date",
+      "entities": [
+        {
+          "entity": "day",
+          "startPos": 16,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "che ora è?",
+      "intent": "time",
+      "entities": []
+    },
+    {
+      "text": "che ore sono?",
+      "intent": "time",
+      "entities": []
+    },
+    {
+      "text": "che tempo fa a napoli",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 15,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "che tempo fa a pisa?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 15,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "che tempo fa ad arma di taggia",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 16,
+          "endPos": 29
+        }
+      ]
+    },
+    {
+      "text": "chi è antonio banderas?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "chi è cameron diaz?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 17
+        }
+      ]
+    },
+    {
+      "text": "chi è dante alighieri?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "chi è donatello",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "chi è il doctor who?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 9,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "chi è il mago zurlì?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 9,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "chi è jenna jameson",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "chi è john travolta?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "chi è leonardo",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 13
+        }
+      ]
+    },
+    {
+      "text": "chi è mark paul gosselaar?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "chi è marylin",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 12
+        }
+      ]
+    },
+    {
+      "text": "chi è megan fox?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "chi è melanie griffith?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "chi è michelangelo",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 17
+        }
+      ]
+    },
+    {
+      "text": "chi è roberto de niro",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "chi è scarlett johansson",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "chi è trapattoni",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "chi è un signore del tempo?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 9,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "chi è zorro?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 10
+        }
+      ]
+    },
+    {
+      "text": "chi era camillo benso conte di cavour?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 8,
+          "endPos": 36
+        }
+      ]
+    },
+    {
+      "text": "chi era giuseppe tomasi di lampedusa?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 8,
+          "endPos": 35
+        }
+      ]
+    },
+    {
+      "text": "chi erano gli illuminati?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 10,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "chi sono i fratelli grimm?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 11,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "chi sono i signori del tempo?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 9,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "come è il meteo a l'aquila?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 18,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "come è il meteo?",
+      "intent": "weather",
+      "entities": []
+    },
+    {
+      "text": "come è il tempo a arma di taggia?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 18,
+          "endPos": 31
+        }
+      ]
+    },
+    {
+      "text": "come è il tempo a livorno",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 18,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "come è il tempo a londra?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 18,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "come è il tempo a pordenone oggi?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 18,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "come è il tempo a roma?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 18,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "come è il tempo a san paolo?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 18,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "come è il tempo a taggia?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 18,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "come è il tempo in liguria?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 19,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "come è il tempo nella zona di portland?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 30,
+          "endPos": 37
+        }
+      ]
+    },
+    {
+      "text": "com'è il meteo oggi?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "day",
+          "startPos": 15,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "come si sta a sanremo?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 14,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "come si sta ad arma di taggia?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 15,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "come si sta adesso a milano?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 21,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "come si sta negli stati uniti?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 18,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "come sono le condizioni del tempo a napoli?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 36,
+          "endPos": 41
+        }
+      ]
+    },
+    {
+      "text": "come sono le condizioni meteo?",
+      "intent": "weather",
+      "entities": []
+    },
+    {
+      "text": "conosci i queen?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 10,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "cos' è il monte faudo",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 10,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "cosa è giove?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 7,
+          "endPos": 11
+        }
+      ]
+    },
+    {
+      "text": "cosa è la seconda guerra mondiale",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 10,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "cosa è l'accidia?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 9,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "cosa è mercurio",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 7,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "cosa è un elettrone?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 10,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "cosa è una tartaruga?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 11,
+          "endPos": 19
+        }
+      ]
+    },
+    {
+      "text": "cosa sai dirmi del terreno?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 19,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "cosa sai sull'energia nucleare?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 14,
+          "endPos": 29
+        }
+      ]
+    },
+    {
+      "text": "cosa si intende con guerra dei cento anni?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 20,
+          "endPos": 40
+        }
+      ]
+    },
+    {
+      "text": "cosa si intende per guerra fredda?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 20,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "cosa significa economia domestica",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 15,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "cosa significa modus operandi",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 15,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "cosa significa rapimento?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 15,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "cosa significa rigor mortis",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 15,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "cosa sono gli pneumatici?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 14,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "cosa sono i sepolcri?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 10,
+          "endPos": 19
+        }
+      ]
+    },
+    {
+      "text": "cosa sono le castagne?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 13,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "cosa sono le scarpe?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 13,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "cosa vuol dire scapestrato?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 15,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "cos'è il modus operandi",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 9,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "cos'è il monte everest?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 9,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "cos'è la guerra",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 9,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "cos'è la guerra del vietnam?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 9,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "cos'è la prima guerra mondiale",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 9,
+          "endPos": 29
+        }
+      ]
+    },
+    {
+      "text": "cos'è l'effetto serra?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 8,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "cos'è mercurio?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 13
+        }
+      ]
+    },
+    {
+      "text": "cos'è un ragno?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 9,
+          "endPos": 13
+        }
+      ]
+    },
+    {
+      "text": "cos'è una mangusta nana",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 10,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "cos'è una medusa",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 10,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "cos'è una vedova nera?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 10,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "cos'è venere",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 6,
+          "endPos": 11
+        }
+      ]
+    },
+    {
+      "text": "dammi informazioni su robert downey junior",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 22,
+          "endPos": 41
+        }
+      ]
+    },
+    {
+      "text": "dammi informazioni sul vietnam",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 23,
+          "endPos": 29
+        }
+      ]
+    },
+    {
+      "text": "dammi informazioni sulla tarantola",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 25,
+          "endPos": 33
+        }
+      ]
+    },
+    {
+      "text": "dimm qualcosa a proposito di sport",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 29,
+          "endPos": 33
+        }
+      ]
+    },
+    {
+      "text": "dimmi che ora è",
+      "intent": "time",
+      "entities": []
+    },
+    {
+      "text": "dimmi che ore sono",
+      "intent": "time",
+      "entities": []
+    },
+    {
+      "text": "dimmi la data attuale",
+      "intent": "date",
+      "entities": []
+    },
+    {
+      "text": "dimmi la data di oggi",
+      "intent": "date",
+      "entities": [
+        {
+          "entity": "day",
+          "startPos": 17,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "dimmi per piacere che ore sono",
+      "intent": "time",
+      "entities": []
+    },
+    {
+      "text": "dimmi qualcosa a proposito dell'inquinamento",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 32,
+          "endPos": 43
+        }
+      ]
+    },
+    {
+      "text": "dimmi qualcosa a proposito di bart simpson",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 30,
+          "endPos": 41
+        }
+      ]
+    },
+    {
+      "text": "dimmi qualcosa a proposito di max pezzali",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 30,
+          "endPos": 40
+        }
+      ]
+    },
+    {
+      "text": "dimmi qualcosa a riguardo della presa della bastiglia",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 32,
+          "endPos": 52
+        }
+      ]
+    },
+    {
+      "text": "dimmi qualcosa della deforestazione",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 21,
+          "endPos": 34
+        }
+      ]
+    },
+    {
+      "text": "dimmi qualcosa su homer simpson",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 18,
+          "endPos": 30
+        }
+      ]
+    },
+    {
+      "text": "dimmi qualcosa su jovanotti",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 18,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "dimmi qualcosa su marilyn monroe",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 18,
+          "endPos": 31
+        }
+      ]
+    },
+    {
+      "text": "dimmi qualcosa su morandi",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 18,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "dimmi qualcosa sul calcio",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 19,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "dimmi qualcosa sul ragno violino",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 19,
+          "endPos": 31
+        }
+      ]
+    },
+    {
+      "text": "dimmi qualcosa sull'aumento della temperatura",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 20,
+          "endPos": 44
+        }
+      ]
+    },
+    {
+      "text": "dimmi qualcosa sull'italia",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 20,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "dimmi qualcosa sullo sgombro",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 21,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "dimmi qualcosa sullo squalo bianco",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 21,
+          "endPos": 33
+        }
+      ]
+    },
+    {
+      "text": "dimmi qulacosa a proposito di dustin hoffman",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 30,
+          "endPos": 43
+        }
+      ]
+    },
+    {
+      "text": "dimmi una barzelletta",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "dimmi una barzelletta, per favore",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "dimmi una barzelletta, per piacere",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "dimmi una battuta",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "dimmi un'altra barzelletta",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "domani che giorno sarà?",
+      "intent": "date",
+      "entities": [
+        {
+          "entity": "day",
+          "startPos": 0,
+          "endPos": 5
+        }
+      ]
+    },
+    {
+      "text": "fammi sentire una barzelletta",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "fammi sentire una battuta",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "fammi sentire una storiella",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "in canada come si sta?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 3,
+          "endPos": 8
+        }
+      ]
+    },
+    {
+      "text": "in nuova zelanda quali sono le condizioni?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 3,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "mi dici che giorno è?",
+      "intent": "date",
+      "entities": []
+    },
+    {
+      "text": "mi dici la data di oggi?",
+      "intent": "date",
+      "entities": [
+        {
+          "entity": "day",
+          "startPos": 19,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "mi dici per favore che ora è?",
+      "intent": "time",
+      "entities": []
+    },
+    {
+      "text": "mi dici una barzelletta, per favore?",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "mi dici una barzelletta?",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "mi dici una battuta?",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "mi potresti dire che ore sono?",
+      "intent": "time",
+      "entities": []
+    },
+    {
+      "text": "mi potresti dire l'ora?",
+      "intent": "time",
+      "entities": []
+    },
+    {
+      "text": "mi puoi dire l'ora, grazie?",
+      "intent": "time",
+      "entities": []
+    },
+    {
+      "text": "mi racconti una barzelletta?",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "mi sai dire l'ora?",
+      "intent": "time",
+      "entities": []
+    },
+    {
+      "text": "oggi che giorno è?",
+      "intent": "date",
+      "entities": [
+        {
+          "entity": "day",
+          "startPos": 0,
+          "endPos": 3
+        }
+      ]
+    },
+    {
+      "text": "parlami degli alberi",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 14,
+          "endPos": 19
+        }
+      ]
+    },
+    {
+      "text": "parlami del calcio",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 12,
+          "endPos": 17
+        }
+      ]
+    },
+    {
+      "text": "parlami del cemento",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 12,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "parlami del cobra reale",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 12,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "parlami delle meduse",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 14,
+          "endPos": 19
+        }
+      ]
+    },
+    {
+      "text": "parlami di marte",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 11,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "per favore, che ore sono?",
+      "intent": "time",
+      "entities": []
+    },
+    {
+      "text": "per piacere, mi sai dire l'ora?",
+      "intent": "time",
+      "entities": []
+    },
+    {
+      "text": "potrei sapere l'ora?",
+      "intent": "time",
+      "entities": []
+    },
+    {
+      "text": "qual è il significato di egregio?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 25,
+          "endPos": 31
+        }
+      ]
+    },
+    {
+      "text": "qual è il tempo di new york?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 19,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "qual è la data di oggi?",
+      "intent": "date",
+      "entities": [
+        {
+          "entity": "day",
+          "startPos": 10,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "qual è l'orario?",
+      "intent": "time",
+      "entities": []
+    },
+    {
+      "text": "quale è il tempo di san diego?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 20,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "quali sono le condizioni a imperia?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 27,
+          "endPos": 33
+        }
+      ]
+    },
+    {
+      "text": "quali sono le condizioni del tempo di parigi?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 38,
+          "endPos": 43
+        }
+      ]
+    },
+    {
+      "text": "quali sono le condizioni meteo a san biagio mondovì?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 33,
+          "endPos": 50
+        }
+      ]
+    },
+    {
+      "text": "quali sono le condizioni meteo in toscana?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 34,
+          "endPos": 40
+        }
+      ]
+    },
+    {
+      "text": "quante ne abbiamo oggi?",
+      "intent": "date",
+      "entities": [
+        {
+          "entity": "day",
+          "startPos": 18,
+          "endPos": 21
+        }
+      ]
+    },
+    {
+      "text": "quante ne abbiamo?",
+      "intent": "date",
+      "entities": []
+    },
+    {
+      "text": "quante ne avremo domani?",
+      "intent": "date",
+      "entities": [
+        {
+          "entity": "day",
+          "startPos": 17,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "raccontami una barzelletta",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "raccontami una barzelletta, per favore",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "raccontami una barzelletta, per piacere",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "raccontami una storiella",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "raccontami un'altra barzelletta",
+      "intent": "joke",
+      "entities": []
+    },
+    {
+      "text": "uno qualo cos'è?",
+      "intent": "search",
+      "entities": [
+        {
+          "entity": "name",
+          "startPos": 4,
+          "endPos": 8
+        }
+      ]
+    }
+  ],
+  "settings": []
+}
