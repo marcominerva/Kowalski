@@ -1,0 +1,16 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "AzureWebJobsDashboard": "",
+    "SpeechSubscriptionKey": "",
+    "Culture": "it-IT",
+    "Gender": "Male",
+    "VoiceName": "Microsoft Server Speech Text to Speech Voice (it-IT, Cosimo, Apollo)",
+    "AuthenticationUri": "https://northeurope.api.cognitive.microsoft.com/sts/v1.0/issueToken",
+    "SpeechRequestUri": "https://northeurope.tts.speech.microsoft.com/cognitiveservices/v1",
+    "AppName": "",
+    "AppId": "",
+    "ClientId": ""
+  }
+}

@@ -1,0 +1,8 @@
+﻿{
+	"AssistantName": "Kowalski",
+	"UserName": "Kowalski Client app",
+	"DirectLineSecret": "oqp_cIjiiFE.cwA.0ZQ.81U9lauo5QNJYKTOpqYw3ckcfmzfSgulKBSW51ATfbk",
+	"BotId": "KowalskiAssistant",
+  "Culture": "it-IT",
+  "Gender": "Male"
+}
