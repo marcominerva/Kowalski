@@ -1,0 +1,9 @@
+﻿{
+	"AssistantName": "Kowalski",
+	"UserName": "Kowalski Client app",
+	"DirectLineSecret": "",
+	"BotId": "",
+	"SpeechSubscriptionKey": "",
+	"SpeechRegion": "northeurope",
+	"Culture": "it-IT"
+}
