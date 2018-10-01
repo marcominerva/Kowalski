@@ -1,4 +1,5 @@
 ﻿using Kowalski.Common;
+using Kowalski.Extensions;
 using Kowalski.Models;
 using Microsoft.Bot.Connector.DirectLine;
 using Newtonsoft.Json;
@@ -100,7 +101,7 @@ namespace Kowalski.Services
                         var commandResult = await commandSpeechRecognizer.RecognizeAsync();
                         if (commandResult.Status == SpeechRecognitionResultStatus.Success && commandResult.Confidence != SpeechRecognitionConfidence.Rejected)
                         {
-                            var command = commandResult.Text.EndsWith("?") ? commandResult.Text : $"{commandResult.Text}?";
+                            var command = commandResult.NormalizeText();
                             Debug.WriteLine(command);
 
                             OnCommandReceived?.Invoke(null, EventArgs.Empty);

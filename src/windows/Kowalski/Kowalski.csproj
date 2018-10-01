@@ -105,6 +105,7 @@
     <Compile Include="Behaviors\PushButtonBehavior.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Extensions\SpeechRecognitionResultExtensions.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
