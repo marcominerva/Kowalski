@@ -1404,6 +1404,17 @@
       ]
     },
     {
+      "text": "oggi quante ne abbiamo?",
+      "intent": "date",
+      "entities": [
+        {
+          "entity": "day",
+          "startPos": 0,
+          "endPos": 3
+        }
+      ]
+    },
+    {
       "text": "parlami degli alberi",
       "intent": "search",
       "entities": [
