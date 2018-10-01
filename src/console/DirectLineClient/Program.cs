@@ -1,14 +1,14 @@
-﻿namespace DirectLineSampleClient
+﻿using System;
+using System.Configuration;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Bot.Connector.DirectLine;
+using Newtonsoft.Json;
+using WebSocketSharp;
+
+namespace DirectLineSampleClient
 {
-    using System;
-    using System.Configuration;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Microsoft.Bot.Connector.DirectLine;
-    using Models;
-    using Newtonsoft.Json;
-    using WebSocketSharp;
 
     public class Program
     {
