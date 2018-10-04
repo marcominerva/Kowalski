@@ -48,6 +48,17 @@
   "patterns": [],
   "utterances": [
     {
+      "text": "a milano com'è il tempo?",
+      "intent": "weather",
+      "entities": [
+        {
+          "entity": "location",
+          "startPos": 2,
+          "endPos": 7
+        }
+      ]
+    },
+    {
       "text": "a monza che tempo fa?",
       "intent": "weather",
       "entities": [
