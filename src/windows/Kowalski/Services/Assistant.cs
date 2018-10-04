@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Globalization;
 using Windows.Media.SpeechRecognition;
+using Windows.Networking.Connectivity;
 using Windows.Networking.Sockets;
 using Windows.Storage;
 
@@ -33,99 +34,116 @@ namespace Kowalski.Services
 
         public static async void StartService()
         {
-            if (isRunning)
+            try
             {
-                // If the service is already running, exits.
-                return;
-            }
-
-            isRunning = true;
-
-            if (Settings.Instance == null)
-            {
-                await LoadSettingsAsync();
-            }
-
-            if (directLineClient == null)
-            {
-                // Obtain a token using the Direct Line secret
-                var tokenResponse = await new DirectLineClient(Settings.Instance.DirectLineSecret).Tokens.GenerateTokenForNewConversationAsync();
-
-                // Use token to create conversation
-                directLineClient = new DirectLineClient(tokenResponse.Token);
-                conversation = await directLineClient.Conversations.StartConversationAsync();
-
-                // Connect using a WebSocket.
-                webSocketClient = new MessageWebSocket();
-                webSocketClient.MessageReceived += WebSocketClient_MessageReceived;
-                await webSocketClient.ConnectAsync(new Uri(conversation.StreamUrl));
-            }
-
-            if (assistantInvokerSpeechRecognizer == null)
-            {
-                // Create an instance of SpeechRecognizer.
-                assistantInvokerSpeechRecognizer = new SpeechRecognizer(new Language(Settings.Instance.Culture));
-                assistantInvokerSpeechRecognizer.Timeouts.InitialSilenceTimeout = TimeSpan.MaxValue;
-                assistantInvokerSpeechRecognizer.Timeouts.BabbleTimeout = TimeSpan.MaxValue;
-
-                // Add a list constraint to the recognizer.
-                var listConstraint = new SpeechRecognitionListConstraint(new string[] { Settings.Instance.AssistantName }, "assistant");
-                assistantInvokerSpeechRecognizer.Constraints.Add(listConstraint);
-                await assistantInvokerSpeechRecognizer.CompileConstraintsAsync();
-            }
-
-            if (commandSpeechRecognizer == null)
-            {
-                commandSpeechRecognizer = new SpeechRecognizer(new Language(Settings.Instance.Culture));
-
-                // Apply the dictation topic constraint to optimize for dictated freeform speech.
-                var dictationConstraint = new SpeechRecognitionTopicConstraint(SpeechRecognitionScenario.WebSearch, "dictation");
-                commandSpeechRecognizer.Constraints.Add(dictationConstraint);
-                await commandSpeechRecognizer.CompileConstraintsAsync();
-            }
-
-            // The assistant is ready to receive input.
-            SoundPlayer.Instance.Play(Sounds.SpeechActive);
-
-            while (isRunning)
-            {
-                try
+                if (isRunning)
                 {
-                    var assistantInvocationResult = await assistantInvokerSpeechRecognizer.RecognizeAsync();
-                    if (assistantInvocationResult.Status == SpeechRecognitionResultStatus.Success && assistantInvocationResult.Confidence != SpeechRecognitionConfidence.Rejected)
+                    // If the service is already running, exits.
+                    return;
+                }
+
+                isRunning = true;
+
+                var isConnected = false;
+                while (!isConnected)
+                {
+                    // Be sure to be connected to the Internet.
+                    var profile = NetworkInformation.GetInternetConnectionProfile();
+                    isConnected = profile?.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
+                    await Task.Delay(200);
+                }
+
+                if (Settings.Instance == null)
+                {
+                    await LoadSettingsAsync();
+                }
+
+                if (directLineClient == null)
+                {
+                    // Obtain a token using the Direct Line secret
+                    var tokenResponse = await new DirectLineClient(Settings.Instance.DirectLineSecret).Tokens.GenerateTokenForNewConversationAsync();
+
+                    // Use token to create conversation
+                    directLineClient = new DirectLineClient(tokenResponse.Token);
+                    conversation = await directLineClient.Conversations.StartConversationAsync();
+
+                    // Connect using a WebSocket.
+                    webSocketClient = new MessageWebSocket();
+                    webSocketClient.MessageReceived += WebSocketClient_MessageReceived;
+                    await webSocketClient.ConnectAsync(new Uri(conversation.StreamUrl));
+                }
+
+                if (assistantInvokerSpeechRecognizer == null)
+                {
+                    // Create an instance of SpeechRecognizer.
+                    assistantInvokerSpeechRecognizer = new SpeechRecognizer(new Language(Settings.Instance.Culture));
+                    assistantInvokerSpeechRecognizer.Timeouts.InitialSilenceTimeout = TimeSpan.MaxValue;
+                    assistantInvokerSpeechRecognizer.Timeouts.BabbleTimeout = TimeSpan.MaxValue;
+
+                    // Add a list constraint to the recognizer.
+                    var listConstraint = new SpeechRecognitionListConstraint(new string[] { Settings.Instance.AssistantName }, "assistant");
+                    assistantInvokerSpeechRecognizer.Constraints.Add(listConstraint);
+                    await assistantInvokerSpeechRecognizer.CompileConstraintsAsync();
+                }
+
+                if (commandSpeechRecognizer == null)
+                {
+                    commandSpeechRecognizer = new SpeechRecognizer(new Language(Settings.Instance.Culture));
+
+                    // Apply the dictation topic constraint to optimize for dictated freeform speech.
+                    var dictationConstraint = new SpeechRecognitionTopicConstraint(SpeechRecognitionScenario.WebSearch, "dictation");
+                    commandSpeechRecognizer.Constraints.Add(dictationConstraint);
+                    await commandSpeechRecognizer.CompileConstraintsAsync();
+                }
+
+                // The assistant is ready to receive input.
+                SoundPlayer.Instance.Play(Sounds.SpeechActive);
+
+                while (isRunning)
+                {
+                    try
                     {
-                        OnStartRecognition?.Invoke(null, EventArgs.Empty);
-                        SoundPlayer.Instance.Play(Sounds.Ready);
-
-                        // Starts command recognition. It returns when the first utterance has been recognized.
-                        var commandResult = await commandSpeechRecognizer.RecognizeAsync();
-                        if (commandResult.Status == SpeechRecognitionResultStatus.Success && commandResult.Confidence != SpeechRecognitionConfidence.Rejected)
+                        var assistantInvocationResult = await assistantInvokerSpeechRecognizer.RecognizeAsync();
+                        if (assistantInvocationResult.Status == SpeechRecognitionResultStatus.Success && assistantInvocationResult.Confidence != SpeechRecognitionConfidence.Rejected)
                         {
-                            var command = commandResult.NormalizeText();
-                            Debug.WriteLine(command);
+                            OnStartRecognition?.Invoke(null, EventArgs.Empty);
+                            SoundPlayer.Instance.Play(Sounds.Ready);
 
-                            OnCommandReceived?.Invoke(null, EventArgs.Empty);
-
-                            // Sends the activity to the Bot. The answer will be received in the WebSocket received event handler.
-                            var userMessage = new Activity
+                            // Starts command recognition. It returns when the first utterance has been recognized.
+                            var commandResult = await commandSpeechRecognizer.RecognizeAsync();
+                            if (commandResult.Status == SpeechRecognitionResultStatus.Success && commandResult.Confidence != SpeechRecognitionConfidence.Rejected)
                             {
-                                From = new ChannelAccount(Settings.Instance.UserName),
-                                Text = command,
-                                Type = ActivityTypes.Message
-                            };
+                                var command = commandResult.NormalizeText();
+                                Debug.WriteLine(command);
 
-                            await directLineClient.Conversations.PostActivityAsync(conversation.ConversationId, userMessage);
+                                OnCommandReceived?.Invoke(null, EventArgs.Empty);
+
+                                // Sends the activity to the Bot. The answer will be received in the WebSocket received event handler.
+                                var userMessage = new Activity
+                                {
+                                    From = new ChannelAccount(Settings.Instance.UserName),
+                                    Text = command,
+                                    Type = ActivityTypes.Message
+                                };
+
+                                await directLineClient.Conversations.PostActivityAsync(conversation.ConversationId, userMessage);
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        OnResponseReceived?.Invoke(null, new BotEventArgs(ex.Message));
+                    }
                 }
-                catch (Exception ex)
-                {
-                    OnResponseReceived?.Invoke(null, new BotEventArgs(ex.Message));
-                }
-            }
 
-            // Clean up used resources.
-            SoundPlayer.Instance.Play(Sounds.SpeechStopped);
+                // Clean up used resources.
+                SoundPlayer.Instance.Play(Sounds.SpeechStopped);
+            }
+            catch (Exception ex)
+            {
+                OnResponseReceived?.Invoke(null, new BotEventArgs(ex.Message));
+                SoundPlayer.Instance.Play(Sounds.SpeechStopped);
+            }
 
             assistantInvokerSpeechRecognizer?.Dispose();
             commandSpeechRecognizer?.Dispose();
@@ -137,6 +155,8 @@ namespace Kowalski.Services
             webSocketClient = null;
             conversation = null;
             directLineClient = null;
+
+            isRunning = false;
         }
 
         private static async void WebSocketClient_MessageReceived(MessageWebSocket sender, MessageWebSocketMessageReceivedEventArgs args)

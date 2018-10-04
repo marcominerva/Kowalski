@@ -121,7 +121,6 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="Kowalski_TemporaryKey.pfx" />
-    <None Include="settings.kowalski" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Audio\Ready.mp3" />
