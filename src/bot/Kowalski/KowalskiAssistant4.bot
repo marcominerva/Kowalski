@@ -1,0 +1,49 @@
+{
+  "name": "KowalskiAssistant4",
+  "padlock": "",
+  "version": "2.0",
+  "services": [
+    {
+      "tenantId": "",
+      "subscriptionId": "",
+      "resourceGroup": "KowalskiAssistant",
+      "serviceName": "KowalskiAssistant4",
+      "type": "abs",
+      "name": "KowalskiAssistant4",
+      "id": "1"
+    },
+    {
+      "connectionString": "",
+      "tenantId": "",
+      "subscriptionId": "",
+      "resourceGroup": "KowalskiAssistant",
+      "serviceName": "kowalskiassistant",
+      "type": "blob",
+      "id": "2"
+    },
+    {
+      "appId": "",
+      "appPassword": "",
+      "endpoint": "http://localhost:3979/api/messages",
+      "type": "endpoint",
+      "name": "development",
+      "id": "3"
+    },
+    {
+      "appId": "",
+      "appPassword": "",
+      "endpoint": "",
+      "type": "endpoint",
+      "name": "production",
+      "id": "4"
+    },
+    {
+      "appId": "",
+      "authoringKey": "",
+      "region": "westeurope",
+      "type": "luis",
+      "name": "Kowalski",
+      "id": "5"
+    }
+  ]
+}

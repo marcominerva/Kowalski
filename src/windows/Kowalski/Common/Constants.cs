@@ -13,7 +13,7 @@ namespace Kowalski.Common
         public const string UserName = "Kowalski Client app";
 
         public const string DirectLineSecret = "";
-        public const string BotId = "";
+        public const string BotId = "KowalskiAssistant4";
 
         public const string Culture = "it-IT";
 

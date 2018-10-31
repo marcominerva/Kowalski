@@ -1,5 +1,6 @@
 ﻿using Kowalski.BusinessLayer.Extensions;
 using Kowalski.BusinessLayer.Models;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
 using System.Configuration;
@@ -10,47 +11,47 @@ using System.Threading.Tasks;
 
 namespace Kowalski.BusinessLayer.Services
 {
-    public static class WeatherService
+    public class WeatherService : IWeatherService
     {
-        private static readonly string weatherServiceUri;
+        private readonly AppSettings settings;
+        private readonly IHttpClientFactory httpClientFactory;
 
-        static WeatherService()
+        public WeatherService(IOptions<AppSettings> settings, IHttpClientFactory httpClientFactory)
         {
-            weatherServiceUri = ConfigurationManager.AppSettings["WeatherServiceUri"];
+            this.settings = settings.Value;
+            this.httpClientFactory = httpClientFactory;
         }
 
-        public static async Task<string> GetWeatherAsync(string city)
+        public async Task<string> GetWeatherAsync(string location)
         {
-            var url = string.Format(weatherServiceUri, Uri.EscapeDataString(city));
+            var url = string.Format(settings.WeatherServiceUri, Uri.EscapeDataString(location));
 
             try
             {
-                using (var client = new HttpClient())
+                var client = httpClientFactory.CreateClient();
+                var json = await client.GetStringAsync(url);
+                if (string.IsNullOrWhiteSpace(json))
                 {
-                    var json = await client.GetStringAsync(url);
-                    if (string.IsNullOrWhiteSpace(json))
-                    {
-                        return null;
-                    }
-
-                    var weather = JsonConvert.DeserializeObject<CurrentWeather>(json);
-
-                    // Checks the correct message to use.
-                    var message = Messages.WeatherSingular;
-                    switch (weather.WeatherInfo.FirstOrDefault().Id)
-                    {
-                        case 801:
-                        case 802:
-                        case 803:
-                        case 804:
-                            message = Messages.WeatherPlural;
-
-                            break;
-                    }
-
-                    message = string.Format(message, weather.Name, weather.WeatherInfo.FirstOrDefault().Description, Math.Round(weather.WeatherDetail.Temperature, 0));
-                    return message;
+                    return null;
                 }
+
+                var weather = JsonConvert.DeserializeObject<CurrentWeather>(json);
+
+                // Checks the correct message to use.
+                var message = Messages.WeatherSingular;
+                switch (weather.WeatherInfo.FirstOrDefault().Id)
+                {
+                    case 801:
+                    case 802:
+                    case 803:
+                    case 804:
+                        message = Messages.WeatherPlural;
+
+                        break;
+                }
+
+                message = string.Format(message, location, weather.WeatherInfo.FirstOrDefault().Description, Math.Round(weather.WeatherDetail.Temperature, 0));
+                return message;
             }
             catch
             {

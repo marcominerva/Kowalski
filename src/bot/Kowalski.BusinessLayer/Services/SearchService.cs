@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Kowalski.BusinessLayer.Models;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,27 +13,23 @@ using System.Threading.Tasks;
 
 namespace Kowalski.BusinessLayer.Services
 {
-    public static class SearchService
+    public class SearchService : ISearchService
     {
-        private static readonly string searchUri;
-        private static readonly string searchSubscriptionKey;
-        private static readonly string culture;
+        private readonly AppSettings settings;
 
-        static SearchService()
+        public SearchService(IOptions<AppSettings> settings)
         {
-            culture = ConfigurationManager.AppSettings["Culture"];
-            searchUri = ConfigurationManager.AppSettings["SearchUri"];
-            searchSubscriptionKey = ConfigurationManager.AppSettings["SearchSubscriptionKey"];
+            this.settings = settings.Value;
         }
 
-        public static async Task<string> SearchAsync(string query)
+        public async Task<string> SearchAsync(string query)
         {
             // Construct the URI of the search request
-            var uriQuery = $"{searchUri}?q={Uri.EscapeDataString(query)}&mkt={culture}";
+            var uriQuery = $"{settings.SearchUri}?q={Uri.EscapeDataString(query)}&mkt={settings.Culture}";
 
             // Perform the Web request and get the response
             var request = WebRequest.Create(uriQuery);
-            request.Headers["Ocp-Apim-Subscription-Key"] = searchSubscriptionKey;
+            request.Headers["Ocp-Apim-Subscription-Key"] = settings.SearchSubscriptionKey;
 
             try
             {

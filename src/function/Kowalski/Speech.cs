@@ -1,68 +1,69 @@
-using System;
-using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using Kowalski.Extensions;
-using Kowalski.Services;
+using System.IO;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs.Host;
+using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Kowalski.Models;
+using Kowalski.Services;
+using System.Threading.Tasks;
+using System;
+using Microsoft.Net.Http.Headers;
 
 namespace Kowalski
 {
     public static class Speech
     {
-        [FunctionName("Speech")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = null)]HttpRequestMessage req, TraceWriter log)
-        {
-            HttpResponseMessage response = null;
+        private static AppSettings settings = null;
 
-            var text = req.GetQueryStringValue("q");
-            log.Info($"Request text: {text}");
+        [FunctionName("Speech")]
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = null)]HttpRequest req, ILogger logger, ExecutionContext context)
+        {
+            var text = req.Query["q"];
+            logger.LogInformation($"Request text: {text}");
 
             if (string.IsNullOrWhiteSpace(text))
             {
-                response = req.CreateErrorResponse(HttpStatusCode.BadRequest, "You must specify the message in the 'q' query string parameter", log);
+                return new BadRequestObjectResult("You must specify the message in the 'q' query string parameter");
             }
             else
             {
-                var speechSubscriptionKey = ConfigurationManager.AppSettings["SpeechSubscriptionKey"];
-                if (string.IsNullOrWhiteSpace(speechSubscriptionKey))
+                if (settings == null)
                 {
-                    response = req.CreateErrorResponse(HttpStatusCode.InternalServerError, "Speech Subscription Key is missing from application settings", log);
+                    var config = new ConfigurationBuilder()
+                                    .SetBasePath(context.FunctionAppDirectory)
+                                    .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
+                                    .AddEnvironmentVariables()
+                                    .Build();
+
+                    settings = config.GetSection("AppSettings").Get<AppSettings>();
+                }
+
+                if (string.IsNullOrWhiteSpace(settings.SpeechSubscriptionKey))
+                {
+                    return new StatusCodeResult(StatusCodes.Status500InternalServerError);
                 }
                 else
                 {
                     // Create the service for text-to-speech using Cognitive Services Speech.
-                    var cortana = new Synthesize();
-                    var auth = new Authentication(ConfigurationManager.AppSettings["AuthenticationUri"], speechSubscriptionKey);
-
-                    var responseStream = await cortana.SpeakAsync(new InputOptions(ConfigurationManager.AppSettings["AppName"], ConfigurationManager.AppSettings["AppId"], ConfigurationManager.AppSettings["ClientId"])
+                    var ttsClient = new SpeechClient(settings.SpeechRegion, settings.SpeechSubscriptionKey);
+                    var responseStream = await ttsClient.SpeakAsync(new TextToSpeechParameters
                     {
-                        RequestUri = new Uri(ConfigurationManager.AppSettings["SpeechRequestUri"]),
                         Text = text,
-                        VoiceType = (Gender)Enum.Parse(typeof(Gender), ConfigurationManager.AppSettings["Gender"] ?? "Male", true),
-                        Locale = ConfigurationManager.AppSettings["Culture"] ?? "it-IT",
-                        VoiceName = ConfigurationManager.AppSettings["VoiceName"] ?? "Microsoft Server Speech Text to Speech Voice (it-IT, Cosimo, Apollo)",
-
+                        VoiceType = (Gender)Enum.Parse(typeof(Gender), settings.Gender ?? "Male", true),
+                        Language = settings.Culture ?? "it-IT",
+                        VoiceName = settings.VoiceName ?? "Microsoft Server Speech Text to Speech Voice (it-IT, Cosimo, Apollo)",
                         // Service can return audio in different output format.
-                        OutputFormat = AudioOutputFormat.Audio24Khz160KBitRateMonoMp3,
-                        AuthorizationToken = "Bearer " + auth.GetAccessToken(),
+                        OutputFormat = AudioOutputFormat.Audio24Khz160KBitRateMonoMp3
                     });
 
-                    // Sends the response to the client.
-                    response = new HttpResponseMessage(HttpStatusCode.OK)
-                    {
-                        Content = new StreamContent(responseStream)
-                    };
-                    response.Content.Headers.ContentType = new MediaTypeHeaderValue("audio/mp3");
+                    var response = new FileStreamResult(responseStream, "audio/mp3");
+                    return response;
                 }
             }
-
-            return response;
         }
     }
 }

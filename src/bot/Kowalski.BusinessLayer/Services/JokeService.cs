@@ -7,17 +7,21 @@ using System.Threading.Tasks;
 
 namespace Kowalski.BusinessLayer.Services
 {
-    public static class JokeService
+    public class JokeService : IJokeService
     {
-        public static async Task<string> GetJokeAsync()
-        {
-            using (var db = new DbContext())
-            {
-                var query = "SELECT TOP 1 Content FROM JOKES ORDER BY NEWID()";
-                var joke = await db.GetAsync<string>(query);
+        private readonly IDbContext dbContext;
 
-                return joke;
-            }
+        public JokeService(IDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
+        public async Task<string> GetJokeAsync()
+        {
+            var query = "SELECT TOP 1 Content FROM JOKES ORDER BY NEWID()";
+            var joke = await dbContext.GetAsync<string>(query);
+
+            return joke;
         }
     }
 }

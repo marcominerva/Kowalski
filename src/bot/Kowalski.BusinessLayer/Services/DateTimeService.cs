@@ -1,36 +1,32 @@
 ﻿using Kowalski.BusinessLayer.Extensions;
+using Kowalski.BusinessLayer.Models;
+using Microsoft.Extensions.Options;
 using System;
 using System.Configuration;
 using System.Globalization;
 
 namespace Kowalski.BusinessLayer.Services
 {
-    public static class DateTimeService
+    public class DateTimeService : IDateTimeService
     {
-        private static readonly string timeZone;
-        private static readonly string timeFormat;
-        private static readonly string culture;
-        private static readonly string dateFormat;
+        private readonly AppSettings settings;
 
-        static DateTimeService()
+        public DateTimeService(IOptions<AppSettings> settings)
         {
-            culture = ConfigurationManager.AppSettings["Culture"];
-            timeZone = ConfigurationManager.AppSettings["TimeZone"];
-            timeFormat = ConfigurationManager.AppSettings["TimeFormat"];
-            dateFormat = ConfigurationManager.AppSettings["DateFormat"];
+            this.settings = settings.Value;
         }
 
-        public static string GetTime()
+        public string GetTime()
         {
-            var localTime = ConvertDate(DateTime.UtcNow, 0, timeZone);
-            var message = string.Format(Messages.Time, localTime.ToString(timeFormat));
+            var localTime = ConvertDate(DateTime.UtcNow, 0, settings.TimeZone);
+            var message = string.Format(Messages.Time, localTime.ToString(settings.TimeFormat));
 
             return message;
         }
 
-        public static string GetDate(string day)
+        public string GetDate(string day)
         {
-            var localTime = ConvertDate(DateTime.UtcNow, 0, timeZone);
+            var localTime = ConvertDate(DateTime.UtcNow, 0, settings.TimeZone);
 
             var addDays = 0;
             var baseMessage = Messages.TodayDate;
@@ -40,11 +36,11 @@ namespace Kowalski.BusinessLayer.Services
                 baseMessage = Messages.TomorrowDate;
             }
 
-            var message = string.Format(baseMessage, localTime.Date.AddDays(addDays).ToString(dateFormat, CultureInfo.CreateSpecificCulture(culture)));
+            var message = string.Format(baseMessage, localTime.Date.AddDays(addDays).ToString(settings.DateFormat, CultureInfo.CreateSpecificCulture(settings.Culture)));
             return message;
         }
 
-        private static DateTime ConvertDate(DateTime inputTime, int fromOffset, string toZone)
+        private DateTime ConvertDate(DateTime inputTime, int fromOffset, string toZone)
         {
             // Ensure that the given date and time is not a specific kind.
             inputTime = DateTime.SpecifyKind(inputTime, DateTimeKind.Unspecified);

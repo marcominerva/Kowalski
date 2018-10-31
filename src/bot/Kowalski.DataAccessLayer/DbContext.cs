@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Kowalski.DataAccessLayer
 {
-    public class DbContext : IDisposable
+    public class DbContext : IDisposable, IDbContext
     {
         private IDbConnection connection;
         private IDbConnection Connection
@@ -26,22 +26,12 @@ namespace Kowalski.DataAccessLayer
             }
         }
 
-        public DbContext() : this(ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString)
-        {
-        }
-
         public DbContext(string connectionString)
         {
             connection = new SqlConnection(connectionString);
         }
 
         public Task<T> GetAsync<T>(string query, object param = null) where T : class => Connection.QueryFirstOrDefaultAsync<T>(query, param);
-
-        public async Task<TReturn> GetAsync<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, object param = null, string splitOn = "Id")
-        {
-            var result = await Connection.QueryAsync(sql, map, param, splitOn: splitOn);
-            return result.FirstOrDefault();
-        }
 
         /// <summary>
         /// Close and dispose of the database connection
