@@ -15,7 +15,7 @@ namespace Kowalski
     /// <summary>
     /// For each interaction from the user, an instance of this class is created and
     /// the OnTurnAsync method is called.
-    /// This is a transient lifetime service.  Transient lifetime services are created
+    /// This is a transient lifetime service. Transient lifetime services are created
     /// each time they're requested. For each <see cref="Activity"/> received, a new instance of this
     /// class is created. Objects that are expensive to construct, or have a lifetime
     /// beyond the single turn, should be carefully managed.
@@ -32,9 +32,9 @@ namespace Kowalski
         /// <summary>
         /// Services configured from the ".bot" file.
         /// </summary>
-        private readonly BotServices _services;
+        private readonly BotServices services;
 
-        private readonly AppSettings _settings;
+        private readonly AppSettings settings;
         private readonly IDateTimeService dateTimeService;
         private readonly IJokeService jokeService;
         private readonly ISearchService searchService;
@@ -48,13 +48,13 @@ namespace Kowalski
         public LuisBot(BotServices services, IOptions<AppSettings> settings,
             IDateTimeService dateTimeService, IJokeService jokeService, ISearchService searchService, IWeatherService weatherService)
         {
-            _services = services ?? throw new ArgumentNullException(nameof(services));
-            if (!_services.LuisServices.ContainsKey(LuisKey))
+            this.services = services ?? throw new ArgumentNullException(nameof(services));
+            if (!this.services.LuisServices.ContainsKey(LuisKey))
             {
-                throw new ArgumentException($"Invalid configuration.  Please check your '.bot' file for a LUIS service named '{LuisKey}'.");
+                throw new ArgumentException($"Invalid configuration. Please check your '.bot' file for a LUIS service named '{LuisKey}'.");
             }
 
-            _settings = settings.Value;
+            this.settings = settings.Value;
 
             this.dateTimeService = dateTimeService;
             this.jokeService = jokeService;
@@ -79,9 +79,9 @@ namespace Kowalski
                 if (turnContext.Activity.Type == ActivityTypes.Message)
                 {
                     // Check LUIS model
-                    var recognizerResult = await _services.LuisServices[LuisKey].RecognizeAsync(turnContext, cancellationToken);
+                    var recognizerResult = await services.LuisServices[LuisKey].RecognizeAsync(turnContext, cancellationToken);
                     var topIntent = recognizerResult?.GetTopScoringIntent();
-                    if (topIntent != null && topIntent.HasValue && topIntent.Value.intent != "None" && topIntent.Value.score > _settings.MinimumScore)
+                    if (topIntent != null && topIntent.HasValue && topIntent.Value.intent != "None" && topIntent.Value.score > settings.MinimumScore)
                     {
                         await ProcessAsync(turnContext, topIntent.Value, recognizerResult.Entities, cancellationToken: cancellationToken);
                     }
@@ -166,7 +166,7 @@ namespace Kowalski
             var audioAttachment = new Attachment()
             {
                 ContentType = "audio/mp3",
-                ContentUrl = string.Format(_settings.SpeechUri, Uri.EscapeDataString(speak ?? message))
+                ContentUrl = string.Format(settings.SpeechUri, Uri.EscapeDataString(speak ?? message))
             };
             reply.Attachments.Add(audioAttachment);
 

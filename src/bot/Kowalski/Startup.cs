@@ -71,7 +71,7 @@ namespace Kowalski
                 throw new InvalidOperationException(msg);
             }
 
-            services.AddSingleton(sp => botConfig ?? throw new InvalidOperationException($"The .bot config file could not be loaded. ({botConfig})"));
+            services.AddSingleton(sp => botConfig ?? throw new InvalidOperationException($"The .bot configuration file could not be loaded. ({botConfig})"));
 
             // Initialize Bot Connected Services clients as singleton.
             var connectedServices = new BotServices(botConfig);
