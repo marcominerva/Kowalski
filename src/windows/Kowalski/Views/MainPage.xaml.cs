@@ -15,6 +15,7 @@ using Windows.Foundation.Metadata;
 using Windows.Media.SpeechRecognition;
 using Windows.Storage;
 using Windows.System;
+using Windows.System.Profile;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -54,7 +55,11 @@ namespace Kowalski.Views
             Assistant.OnStartRecognition += Assistant_OnStartRecognition;
             Assistant.OnCommandReceived += Assistant_OnCommandReceived;
             Assistant.OnResponseReceived += Assistant_OnResponseReceived;
-            Assistant.StartService();
+
+            if (AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.IoT")
+            {
+                Assistant.StartService();
+            }
 
             base.OnNavigatedTo(e);
         }
