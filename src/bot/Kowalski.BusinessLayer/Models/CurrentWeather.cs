@@ -6,6 +6,42 @@ using System.Web;
 
 namespace Kowalski.BusinessLayer.Models
 {
+    public class Clouds
+    {
+        [JsonProperty("all")]
+        public int Cloudiness { get; set; }
+    }
+
+    public class Position
+    {
+        [JsonProperty("lon")]
+        public double Longitude { get; set; }
+
+        [JsonProperty("lat")]
+        public double Latitude { get; set; }
+    }
+
+    public class WeatherInfo
+    {
+        public int Id { get; set; }
+
+        [JsonProperty("main")]
+        public string Condition { get; set; }
+
+        public string Description { get; set; }
+
+        [JsonProperty("icon")]
+        public string ConditionIcon { get; set; }
+    }
+
+    public class Wind
+    {
+        public decimal Speed { get; set; }
+
+        [JsonProperty("deg")]
+        public double Degree { get; set; }
+    }
+
     public class CurrentWeatherDetail
     {
         [JsonProperty("temp")]
